@@ -1,16 +1,13 @@
-Here’s the updated README in Markdown format, incorporating the provided details about your NeonEcommerce app:
-
-```markdown
-# NeonEcommerce <a href="https://neonecommerce.example.com" target="_blank">[Live]</a>
+# Neon Ecommerce
 
 ## Overview
-NeonEcommerce is a React Native e-commerce application that provides a seamless shopping experience for users. The app features a wide range of products, a shopping cart, and a streamlined checkout process. It is designed with a clean and modern interface, ensuring ease of use on both Android and iOS devices.
+Neon Ecommerce is a React Native e-commerce application that provides a seamless shopping experience for users. The app features a wide range of products, a shopping cart, and a streamlined checkout process. It is designed with a clean and modern interface, ensuring ease of use on both Android and iOS devices.
 
 ### DEMO:
 &nbsp;&nbsp;&nbsp;&nbsp; 
 | Android Demo | iOS Demo |
 |--------------|----------|
-| <img src="./Demo/AndroidDemo.gif" width="40%" height="60%"> | <img src="./Demo/IOSDemo.gif" width="40%" height="60%"> |
+| <img src="./Demo/AndroidDemo.gif" width="100%" height="100%"> | <img src="./Demo/IOSDemo.gif" width="100%" height="100%"> |
 
 ## Features
 - **Home Screen**: Displays a carousel of discount images and a list of available products.
@@ -19,13 +16,6 @@ NeonEcommerce is a React Native e-commerce application that provides a seamless 
 - **Cart Management**: View cart items, adjust quantities, and proceed to checkout.
 - **Checkout Process**: Review cart items and place orders.
 - **Order Confirmation**: Displays a summary of the order after successful placement.
-
-## Requirements
-- React Native (JavaScript)
-- Redux for state management
-- React Navigation for navigation between screens
-- Axios for API calls
-- Custom components for reusable UI elements
 
 ## Instructions to Run
 
@@ -63,13 +53,6 @@ npm run ios
 ```
 
 If everything is set up correctly, you should see your new app running in your Android Emulator or iOS Simulator shortly, provided you have set up your emulator/simulator correctly.
-
-## API Endpoints Used
-| Endpoint                                      | Description                       |
-|-----------------------------------------------|-----------------------------------|
-| `https://api.example.com/products`           | Fetches the list of available products. |
-| `https://api.example.com/cart`               | Manages cart operations (fetch, update, etc.). |
-| `https://api.example.com/orders`             | Handles order placement and retrieval. |
 
 ## Screens
 | Screen           | Functionality                                           |
