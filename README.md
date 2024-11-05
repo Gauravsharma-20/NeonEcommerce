@@ -1,79 +1,102 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Here’s the updated README in Markdown format, incorporating the provided details about your NeonEcommerce app:
 
-# Getting Started
+```markdown
+# NeonEcommerce <a href="https://neonecommerce.example.com" target="_blank">[Live]</a>
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Overview
+NeonEcommerce is a React Native e-commerce application that provides a seamless shopping experience for users. The app features a wide range of products, a shopping cart, and a streamlined checkout process. It is designed with a clean and modern interface, ensuring ease of use on both Android and iOS devices.
 
-## Step 1: Start the Metro Server
+### DEMO:
+&nbsp;&nbsp;&nbsp;&nbsp; 
+| Android Demo | iOS Demo |
+|--------------|----------|
+| <img src="./Demo/AndroidDemo.gif" width="40%" height="60%"> | <img src="./Demo/IOSDemo.gif" width="40%" height="60%"> |
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Features
+- **Home Screen**: Displays a carousel of discount images and a list of available products.
+- **Search Functionality**: Users can search for products, with results displayed in real-time.
+- **Product Details**: Detailed view of each product, with options to adjust quantity and add to cart.
+- **Cart Management**: View cart items, adjust quantities, and proceed to checkout.
+- **Checkout Process**: Review cart items and place orders.
+- **Order Confirmation**: Displays a summary of the order after successful placement.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Requirements
+- React Native (JavaScript)
+- Redux for state management
+- React Navigation for navigation between screens
+- Axios for API calls
+- Custom components for reusable UI elements
+
+## Instructions to Run
+
+This project was bootstrapped with [React Native CLI](https://reactnative.dev/docs/environment-setup).
+
+### Step 1: Install Dependencies
+In the project directory, run:
 
 ```bash
-# using npm
+npm install
+```
+
+### Step 2: Start the Metro Server
+
+To start Metro, run the following command from the root of your React Native project:
+
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+### Step 3: Start your Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+Let Metro Bundler run in its own terminal. Open a new terminal from the root of your React Native project. Run the following command to start your Android or iOS app:
 
-### For Android
+#### For Android
 
 ```bash
-# using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+#### For iOS
 
 ```bash
-# using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+If everything is set up correctly, you should see your new app running in your Android Emulator or iOS Simulator shortly, provided you have set up your emulator/simulator correctly.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## API Endpoints Used
+| Endpoint                                      | Description                       |
+|-----------------------------------------------|-----------------------------------|
+| `https://api.example.com/products`           | Fetches the list of available products. |
+| `https://api.example.com/cart`               | Manages cart operations (fetch, update, etc.). |
+| `https://api.example.com/orders`             | Handles order placement and retrieval. |
 
-## Step 3: Modifying your App
+## Screens
+| Screen           | Functionality                                           |
+|------------------|-------------------------------------------------------|
+| Home Screen      | Displays products and carousel.                       |
+| Search Screen    | Allows users to search for products.                  |
+| Product Details   | Shows product details and allows adding to cart.      |
+| Cart Screen      | Displays items in the cart and allows checking out.   |
+| Cart Review Screen| Shows order summary and payment method.               |
+| Confirmation Screen| Displays order confirmation details.                  |
 
-Now that you have successfully run the app, let's modify it.
+## Troubleshooting
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+If you encounter issues running the app, please refer to the following resources:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- [React Native Environment Setup](https://reactnative.dev/docs/environment-setup)
+- [React Native Troubleshooting](https://reactnative.dev/docs/troubleshooting)
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
+## Learn More
 
 To learn more about React Native, take a look at the following resources:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [React Native Website](https://reactnative.dev)
+- [Getting Started with React Native](https://reactnative.dev/docs/getting-started)
+
+## Note
+This application does not include user authentication features.
+```
+
+Feel free to modify any sections as needed or add additional information before finalizing it in your README file!

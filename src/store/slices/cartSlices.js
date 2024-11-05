@@ -37,6 +37,6 @@ export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
 
 export const selectCartItems = (state) => state.cart.items;
 export const selectTotalItems = (state) =>
-  state.cart.items.reduce((total, item) => total + (item.quantity || 0), 0); // Safeguard here
+  state.cart.items.reduce((total, item) => total + (item.quantity || 0), 0); 
 
 export default cartSlice.reducer;

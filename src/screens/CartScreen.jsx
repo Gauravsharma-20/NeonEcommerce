@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectCartItems } from '../store/slices/cartSlices';
 import { fetchCartItems } from '../api/api'; 
@@ -33,14 +33,14 @@ const CartScreen = ({ navigation }) => {
 
   if (loading) {
     return (
-      <View style={styles.loaderContainer}>
+      <SafeAreaView style={styles.loaderContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {cartItems?.length === 0 ? (
         <View style={styles.emptyCartContainer}>
           <Text style={commonStyles.emptyMessage}>Your cart is empty!</Text>
@@ -67,7 +67,7 @@ const CartScreen = ({ navigation }) => {
           </TouchableOpacity>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

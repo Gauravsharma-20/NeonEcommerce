@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../store/slices/cartSlices';
-import { fetchProductById } from '../api/api'; // Ensure this imports correctly
+import { fetchProductById } from '../api/api'; 
 import { colors } from '../utils/styleUtils';
 
 const ProductDetailScreen = ({ route }) => {

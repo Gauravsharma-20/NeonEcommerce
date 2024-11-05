@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, Text, ActivityIndicator, SafeAreaView } from 'react-native';
 import Carousel from '../components/Carousel';
 import ProductCard from '../components/ProductCard';
 import { fetchAvailableProducts } from '../api/api'; 
@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Carousel />
       {loading ? (
         <ActivityIndicator size="large" color={colors.primary} />
@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
       ) : (
         <Text style={commonStyles.emptyMessage}>No products available</Text>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.secondaryBackgroundColor,
-    paddingTop: 15,
   },
   productSection: {
     marginTop: 10, 

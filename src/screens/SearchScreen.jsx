@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, TextInput, FlatList, StyleSheet, ActivityIndicator, SafeAreaView } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import { searchProducts } from '../api/api'; 
 import { colors, commonStyles } from '../utils/styleUtils';
@@ -38,7 +38,7 @@ const SearchScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.searchBar}
         placeholder="Search for products..."
@@ -55,7 +55,7 @@ const SearchScreen = ({ navigation }) => {
           contentContainerStyle={commonStyles.productList}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
