@@ -5,6 +5,7 @@ const baseColors = {
   colorNoonBlueLight: '#edf2ff',
   colorNoonBlack: '#404553',
   colorWhite: '#fff',
+  colorBlack: '#000',
   colorGrey1: '#7e859b',
   colorGrey2: '#9ba0b1',
   colorGrey3: '#dadce3',
@@ -18,6 +19,7 @@ const baseColors = {
   colorSystemGreenTintLight: '#38ae040d',
   colorSystemOrange: '#f3ac30',
   colorSystemOrangeTint: '#fff8ec',
+  colorOpaqueLoader: 'rgba(255, 255, 255, 0.8)',  
   colorSystemRed: '#fa0000',
   colorSystemRedAlt: '#ea2b2b',
   colorSystemRedTint: '#fdecec',
@@ -54,9 +56,19 @@ const colors = {
   confirmationScreenBackground: baseColors.colorWhite,
   activeDotColor: baseColors.colorControlDisabled,
   inactiveDotColor: baseColors.colorGrey5,
+  loaderColor: baseColors.colorOpaqueLoader,
+  whiteColor: baseColors.colorWhite,
+  blackColor: baseColors.colorBlack
 };
 
 const commonStyles = {
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primaryText,
+    paddingHorizontal: 15,
+    marginVertical: 10,
+  },
   emptyMessage: {
     textAlign: 'center',
     color: colors.message,

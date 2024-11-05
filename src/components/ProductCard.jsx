@@ -4,7 +4,7 @@ import { colors } from '../utils/styleUtils';
 
 const ProductCard = ({ product, navigation }) => {
   const handleProductClick = () => {
-    navigation.navigate('ProductDetails', { product });
+    navigation.navigate('ProductDetails', { productId: product.id });
   };
 
   return (

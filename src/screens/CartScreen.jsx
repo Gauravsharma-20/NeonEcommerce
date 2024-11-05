@@ -1,17 +1,43 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectCartItems } from '../store/slices/cartSlices';
+import { fetchCartItems } from '../api/api'; 
 import { colors, commonStyles } from '../utils/styleUtils';
 import CartItem from '../components/CartItem';
 
 const CartScreen = ({ navigation }) => {
-  const cartItems = useSelector(selectCartItems);
+  const cartItemsFromRedux = useSelector(selectCartItems);
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadCartItems = async () => {
+      try {
+        const fetchedCartItems = await fetchCartItems(cartItemsFromRedux);
+        setCartItems(fetchedCartItems);
+      } catch (error) {
+        console.error('Failed to fetch cart items:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCartItems();
+  }, [cartItemsFromRedux]);
 
   const totalAmount = cartItems?.reduce(
     (total, item) => item && item.product ? total + item.product.price * item.quantity : total,
     0
   );
+
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -61,7 +87,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     textAlign: 'center',
-  }
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default CartScreen;

@@ -1,12 +1,30 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
+import { fetchCartReviewItems, placeOrder } from '../api/api';
 import { commonStyles, colors } from '../utils/styleUtils';
 import CartReviewItem from '../components/CartReviewItem';
 
 const CartReviewScreen = ({ navigation }) => {
-  const cartItems = useSelector((state) => state.cart.items) || [];
+  const cartItemsFromRedux = useSelector((state) => state.cart.items) || [];
   const paymentMethod = useSelector((state) => state.cart.paymentMethod) || 'Credit Card';
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadCartItems = async () => {
+      try {
+        const fetchedCartItems = await fetchCartReviewItems(cartItemsFromRedux);
+        setCartItems(fetchedCartItems);
+      } catch (error) {
+        console.error('Failed to fetch cart items for review:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCartItems();
+  }, [cartItemsFromRedux]);
 
   const calculateTotals = () => {
     const subtotal = cartItems.reduce(
@@ -16,6 +34,17 @@ const CartReviewScreen = ({ navigation }) => {
     const tax = subtotal * 0.07;
     const grandTotal = subtotal + tax;
     return { subtotal, tax, grandTotal };
+  };
+
+  const handlePlaceOrder = async () => {
+    try {
+      const { success, message } = await placeOrder(cartItems, paymentMethod);
+      if (success) {
+        navigation.navigate('Confirmation')
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
   };
 
   const renderCartItem = ({ item }) => <CartReviewItem item={item} />;
@@ -40,10 +69,18 @@ const CartReviewScreen = ({ navigation }) => {
     );
   };
 
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      {cartItems.length === 0 ? ( renderEmptyCartMessage()) 
-      : (<>
+      {cartItems.length === 0 ? renderEmptyCartMessage() : (
+        <>
           <FlatList
             data={cartItems}
             renderItem={renderCartItem}
@@ -52,7 +89,7 @@ const CartReviewScreen = ({ navigation }) => {
           {renderOrderSummary()}
           <TouchableOpacity
             style={commonStyles.primaryButton}
-            onPress={() => navigation.navigate('Confirmation')}
+            onPress={handlePlaceOrder}
           >
             <Text style={commonStyles.primaryButtonText}>Place Order</Text>
           </TouchableOpacity>
@@ -86,6 +123,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     textAlign: 'center',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

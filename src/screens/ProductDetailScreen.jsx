@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../store/slices/cartSlices';
+import { fetchProductById } from '../api/api'; // Ensure this imports correctly
 import { colors } from '../utils/styleUtils';
 
 const ProductDetailScreen = ({ route }) => {
-  const { product } = route.params;
+  const { productId } = route.params; 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
-  const cartItem = cartItems.find((item) => item.product.id === product.id);
-
+  const cartItem = cartItems.find((item) => item.product.id === productId);
+  
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [inCart, setInCart] = useState(false);
 
   useEffect(() => {
-    setInCart(cartItem !== undefined);
-  }, [cartItem]);
+    const loadProduct = async () => {
+      try {
+        const productData = await fetchProductById(productId);
+        setProduct(productData);
+        setInCart(cartItem !== undefined);
+      } catch (error) {
+        console.error('Failed to fetch product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProduct();
+  }, [productId, cartItem]);
 
   const handleAddToCart = () => {
     dispatch(addToCart({ product, quantity: 1 }));
@@ -56,9 +71,27 @@ const ProductDetailScreen = ({ route }) => {
     </View>
   );
 
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
+  if (!product) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>Product not found</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: product.image }} style={styles.image} />
+      </View>
       <Text style={styles.title}>{product.title}</Text>
       <Text style={styles.price}>${product.price.toFixed(2)}</Text>
       <Text style={styles.description}>{product.description}</Text>
@@ -80,11 +113,21 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: colors.primaryBackgroundColor,
   },
+  imageContainer: {
+    backgroundColor: 'white', 
+    padding: 16, 
+    borderRadius: 10, 
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5, 
+    marginBottom: 20, 
+  },
   image: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
-    marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -151,6 +194,16 @@ const styles = StyleSheet.create({
     color: colors.productTitle,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: colors.errorText,
   },
 });
 

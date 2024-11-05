@@ -18,7 +18,7 @@ const ConfirmationScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading && (
-        <View style={styles.loaderContainer}>
+        <View style={styles.overlay}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       )}
@@ -31,8 +31,8 @@ const ConfirmationScreen = ({ navigation }) => {
         resizeMode="contain"
         repeat
         muted
-        onLoadStart={() => setLoading(true)} // Show loader when video starts loading
-        onLoad={() => setLoading(false)}     // Hide loader when video is ready
+        onLoadStart={() => setLoading(true)}  
+        onLoad={() => setLoading(false)}     
       />
       <TouchableOpacity 
         style={commonStyles.secondaryButton} 
@@ -45,19 +45,19 @@ const ConfirmationScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  loaderContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -25 }, { translateY: -25 }],
-    zIndex: 1,
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
     backgroundColor: colors.confirmationScreenBackground,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.loaderColor,
+    zIndex: 1,
   },
   message: {
     fontSize: 20,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   video: {
-    width: '100%', 
+    width: '100%',
     height: '60%',
   }
 });

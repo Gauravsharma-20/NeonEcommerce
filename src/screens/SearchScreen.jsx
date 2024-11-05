@@ -1,14 +1,37 @@
-import React, { useState } from 'react';
-import { View, TextInput, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import ProductCard from '../components/ProductCard';
-import { products } from '../mock/products';
+import { searchProducts } from '../api/api'; 
 import { colors, commonStyles } from '../utils/styleUtils';
 
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (searchQuery) {
+        setLoading(true);
+        try {
+          const results = await searchProducts(searchQuery);
+          setFilteredProducts(results);
+        } catch (error) {
+          console.error('Failed to fetch filtered products:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setFilteredProducts([]); 
+      }
+    };
+
+    const timer = setTimeout(() => {
+      fetchFilteredProducts();
+    }, 300); // Debounce search input
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   const renderProductCard = ({ item }) => (
     <ProductCard product={item} navigation={navigation} />
@@ -22,12 +45,16 @@ const SearchScreen = ({ navigation }) => {
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-      <FlatList
-        data={filteredProducts}
-        renderItem={renderProductCard}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={commonStyles.productList}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color={colors.primary} />
+      ) : (
+        <FlatList
+          data={filteredProducts}
+          renderItem={renderProductCard}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={commonStyles.productList}
+        />
+      )}
     </View>
   );
 };
